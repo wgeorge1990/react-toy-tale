@@ -1,25 +1,33 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {toys} from './resources/toys';
+import ToyHeader from './ToyHeader'
+import ToyContainer from './ToyContainer'
+import './index.css'
 
 class App extends Component {
+
+  state = {
+    toys: toys
+  }
+
+  updateLike = (toy) => {
+
+    let filteredToy = this.state.toys.filter(stateToy => stateToy !== toy)
+
+    toy.likes++
+   
+    this.setState({
+      toys: [...filteredToy, toy]
+    })
+
+  }
+
   render() {
+    console.log("These are my toys: ", this.state.toys)
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <ToyHeader />
+        <ToyContainer toys={this.state.toys} updateLike={this.updateLike}/>
       </div>
     );
   }
