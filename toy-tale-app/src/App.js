@@ -11,14 +11,24 @@ class App extends Component {
   }
 
   updateLike = (toy) => {
+    
+    /* 
+    1. Get you toy object from the onClick event in the Toy Card
+    2. Map over your current state of toys to find the toy object
+    3. If the toy in state matches the oty object you passed in, increase the likes
+    4. Else return the toy
+    5. Save the new toy array into a variable and update it in setState
 
-    let filteredToy = this.state.toys.filter(stateToy => stateToy !== toy)
+    Cleaner Solution courtesy of Ryan Riesenberg
+    */
 
-    toy.likes++
+   let updatedToys = this.state.toys.map(stateToy => stateToy === toy ? {...toy, likes: ++toy.likes } : stateToy)
+
+  
    
     this.setState({
-      toys: [...filteredToy, toy]
-    })
+      toys: updatedToys
+    }, ()=> console.log("Woody",this.state.toys[0]))
 
   }
 
